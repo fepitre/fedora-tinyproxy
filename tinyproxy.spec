@@ -2,16 +2,16 @@
 %define tinyproxy_datadir %{_datadir}/tinyproxy
 
 Name:           tinyproxy
-Version:        1.6.3
+Version:        1.6.4
 Release:        2%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
 License:        GPLv2+
-URL:            https://projects.banu.com/tinyproxy/
+URL:            http://tinyproxy.banu.com/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:        http://files.banu.com/pub/tinyproxy/1.6/%{name}-%{version}.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}.conf
 
@@ -84,9 +84,15 @@ fi
 %config(noreplace) %{tinyproxy_confdir}/%{name}.conf
 
 %changelog
+* Sun Aug 24 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.4-2
+- update to upstream 1.6.4 final
+
+* Sun Jun 22 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.4-1
+- update to upstream candidate 1.6.4
+
 * Wed Apr 16 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.3-2
 - fix spec review issues
-- fix initscript 
+- fix initscript
 
 * Sun Mar 09 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.3-1
 - Initial rpm configuration

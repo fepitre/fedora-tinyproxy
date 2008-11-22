@@ -3,7 +3,7 @@
 
 Name:           tinyproxy
 Version:        1.6.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -30,7 +30,10 @@ resource intensive, or a security risk.
 
 
 %build
-%configure --with-config=%{tinyproxy_confdir}/%{name}.conf
+%configure --with-config=%{tinyproxy_confdir}/%{name}.conf \
+    --enable-transparent-proxy 
+    
+
 make %{?_smp_mflags}
 
 
@@ -84,6 +87,9 @@ fi
 %config(noreplace) %{tinyproxy_confdir}/%{name}.conf
 
 %changelog
+* Sat Nov 22 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.4-3
+- add --enable-transparent-proxy option (#466808)
+
 * Sun Aug 24 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.4-2
 - update to upstream 1.6.4 final
 

@@ -3,7 +3,7 @@
 
 Name:           tinyproxy
 Version:        1.6.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -87,6 +87,9 @@ fi
 %config(noreplace) %{tinyproxy_confdir}/%{name}.conf
 
 %changelog
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.6.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Sat Nov 22 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.4-3
 - add --enable-transparent-proxy option (#466808)
 

@@ -11,7 +11,6 @@ License:        GPLv2+
 URL:            https://projects.banu.com/tinyproxy/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source0:        https://www.banu.com/pub/%{name}/1.6/%{name}-%{version}.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}.conf

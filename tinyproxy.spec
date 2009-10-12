@@ -2,7 +2,7 @@
 %define tinyproxy_datadir %{_datadir}/tinyproxy
 
 Name:           tinyproxy
-Version:        1.6.4
+Version:        1.6.5
 Release:        1%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
@@ -11,7 +11,7 @@ License:        GPLv2+
 URL:            https://projects.banu.com/tinyproxy/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://www.banu.com/pub/%{name}/1.6/%{name}-%{version}.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}.conf
 
@@ -86,6 +86,9 @@ fi
 %config(noreplace) %{tinyproxy_confdir}/%{name}.conf
 
 %changelog
+* Sun Oct 11 2009 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.5-1
+- update to 1.6.4
+
 * Sat Nov 22 2008 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.6.4-1
 - update to 1.6.4
 - enable transparent proxy

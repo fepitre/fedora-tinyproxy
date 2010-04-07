@@ -2,6 +2,8 @@
 %define tinyproxy_datadir %{_datadir}/tinyproxy
 %define tinyproxy_rundir  %{_localstatedir}/run/tinyproxy
 %define tinyproxy_logdir  %{_localstatedir}/log/tinyproxy
+%define tinyproxy_user    tinyproxy
+%define tinyproxy_group   tinyproxy
 
 Name:           tinyproxy
 Version:        1.8.1
@@ -46,15 +48,23 @@ make install DESTDIR=%{buildroot}
 %{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{tinyproxy_confdir}/%{name}.conf
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-%{__install} -p -D -m 0700 %{buildroot}%{_localstatedir}/run/%{name}
-%{__install} -p -D -m 0700 %{buildroot}%{_localstatedir}/log/%{name}
+%{__install} -p -d -m 0700 %{buildroot}%{_localstatedir}/run/%{name}
+%{__install} -p -d -m 0700 %{buildroot}%{_localstatedir}/log/%{name}
 
 %clean
 rm -rf %{buildroot}
 
 
+%pre
+if [ $1 == 1 ]; then
+    %{_sbindir}/useradd -c "tinyproxy user" -s /bin/false -r -d %{tinyproxy_rundir} %{tinyproxy_user} 2>/dev/null || :
+fi
+
+
 %post
-/sbin/chkconfig --add %{name}
+if [ $1 == 1 ]; then
+    /sbin/chkconfig --add %{name}
+fi
     
 
 %preun
@@ -65,7 +75,7 @@ fi
     
 
 %postun
-if [ "$1" -ge "1" ]; then
+if [ $1 == 2 ]; then
     /sbin/service %{name} condrestart > /dev/null 2>&1 || :
 fi  
  
@@ -82,9 +92,11 @@ fi
 %dir %{tinyproxy_datadir}/*
 %dir %{tinyproxy_confdir}
 %dir %{tinyproxy_rundir}
-%dir %{tinyproxy_logidr}
+%dir %{tinyproxy_logdir}
 %config(noreplace) %{tinyproxy_confdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+%attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_rundir}
+%attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
 * Tue Apr 06 2010 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.8.1-1

@@ -1,4 +1,4 @@
-/var/log/tinyproxy.log {
+/var/log/tinyproxy/tinyproxy.log {
     daily
     rotate 10
     missingok
@@ -6,6 +6,6 @@
     compress
     sharedscripts
     postrotate
-        [ ! -f /var/run/tinyproxy.pid ] || kill -HUP `cat /var/run/tinyproxy.pid`
+        [ ! -f /var/run/tinyproxy/tinyproxy.pid ] || kill -HUP `cat /var/run/tinyproxy/tinyproxy.pid`
     endscript
 }

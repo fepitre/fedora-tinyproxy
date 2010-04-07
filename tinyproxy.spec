@@ -1,5 +1,7 @@
 %define tinyproxy_confdir %{_sysconfdir}/tinyproxy
 %define tinyproxy_datadir %{_datadir}/tinyproxy
+%define tinyproxy_rundir  %{_localstatedir}/run/tinyproxy
+%define tinyproxy_logdir  %{_localstatedir}/log/tinyproxy
 
 Name:           tinyproxy
 Version:        1.8.1
@@ -44,6 +46,8 @@ make install DESTDIR=%{buildroot}
 %{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{tinyproxy_confdir}/%{name}.conf
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+%{__install} -p -D -m 0700 %{buildroot}%{_localstatedir}/run/%{name}
+%{__install} -p -D -m 0700 %{buildroot}%{_localstatedir}/log/%{name}
 
 %clean
 rm -rf %{buildroot}
@@ -77,6 +81,8 @@ fi
 %dir %{tinyproxy_datadir}
 %dir %{tinyproxy_datadir}/*
 %dir %{tinyproxy_confdir}
+%dir %{tinyproxy_rundir}
+%dir %{tinyproxy_logidr}
 %config(noreplace) %{tinyproxy_confdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 

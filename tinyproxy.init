@@ -43,7 +43,6 @@ start() {
 
 stop() {
     echo -n $"Stopping $prog: "
-    # stop it here, often "killproc $prog"
     killproc $prog
     retval=$?
     echo
@@ -57,7 +56,9 @@ restart() {
 }
 
 reload() {
-    restart
+    echo -n $"Reloading $prog: "
+    killproc $prog -HUP
+    echo
 }
 
 force_reload() {

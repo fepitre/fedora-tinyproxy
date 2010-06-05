@@ -6,7 +6,7 @@
 %define tinyproxy_group   tinyproxy
 
 Name:           tinyproxy
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
@@ -99,8 +99,11 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Sat Jun 05 2010 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.8.2-1
+- update to upstream 1.8.2
+
 * Tue Apr 06 2010 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.8.1-1
-- update to updstream 1.8.1
+- update to upstream 1.8.1
 
 * Wed Feb 17 2010 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.8.0-1
 - update to upstream 1.8.0

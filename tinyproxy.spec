@@ -7,7 +7,7 @@
 
 Name:           tinyproxy
 Version:        1.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -99,6 +99,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Sat Jun 05 2010 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.8.2-1
 - update to upstream 1.8.2
 

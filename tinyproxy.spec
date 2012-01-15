@@ -88,8 +88,7 @@ fi
 %{_mandir}/man8/%{name}.8.gz
 %{_mandir}/man5/%{name}.conf.5.gz
 %{_initrddir}/%{name}
-%dir %{tinyproxy_datadir}
-%dir %{tinyproxy_datadir}/*
+%{tinyproxy_datadir}
 %dir %{tinyproxy_confdir}
 %dir %{tinyproxy_rundir}
 %dir %{tinyproxy_logdir}

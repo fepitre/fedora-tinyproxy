@@ -1,3 +1,5 @@
+%global _hardened_build 1
+
 %define tinyproxy_confdir %{_sysconfdir}/tinyproxy
 %define tinyproxy_datadir %{_datadir}/tinyproxy
 %define tinyproxy_rundir  /run/tinyproxy
@@ -37,7 +39,7 @@ resource intensive, or a security risk.
     --enable-reverse \
     --enable-transparent 
 
-make %{?_smp_mflags}
+make LDFLAGS="%{?__global_ldflags}" CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
 
 
 %install

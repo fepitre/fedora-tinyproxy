@@ -1,13 +1,13 @@
 %define tinyproxy_confdir %{_sysconfdir}/tinyproxy
 %define tinyproxy_datadir %{_datadir}/tinyproxy
-%define tinyproxy_rundir  %{_localstatedir}/run/tinyproxy
+%define tinyproxy_rundir  /run/tinyproxy
 %define tinyproxy_logdir  %{_localstatedir}/log/tinyproxy
 %define tinyproxy_user    tinyproxy
 %define tinyproxy_group   tinyproxy
 
 Name:           tinyproxy
 Version:        1.8.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -16,13 +16,11 @@ URL:            https://www.banu.com/tinyproxy/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source0:        https://www.banu.com/pub/tinyproxy/1.8/%{name}-%{version}.tar.bz2
-Source1:        %{name}.init
+Source1:        %{name}.service
 Source2:        %{name}.conf
 Source3:        %{name}.logrotate
+Source4:        %{name}.tmpfiles
 
-Requires(post):     chkconfig
-Requires(preun):    chkconfig
-Requires(preun):    initscripts
 BuildRequires:      asciidoc
 
 %description
@@ -45,10 +43,11 @@ make %{?_smp_mflags}
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
-%{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
+%{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{tinyproxy_confdir}/%{name}.conf
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-%{__install} -p -d -m 0700 %{buildroot}%{_localstatedir}/run/%{name}
+%{__install} -p -D -m 0644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+%{__install} -p -d -m 0700 %{buildroot}/run/%{name}
 %{__install} -p -d -m 0700 %{buildroot}%{_localstatedir}/log/%{name}
 
 %clean
@@ -62,22 +61,16 @@ fi
 
 
 %post
-if [ $1 == 1 ]; then
-    /sbin/chkconfig --add %{name}
-fi
+/bin/systemd-tmpfiles --create %{_tmpfilesdir}/%{name}.conf
+%systemd_post %{name}.service
     
 
 %preun
-if [ $1 = 0 ]; then
-    /sbin/service %{name} stop >/dev/null 2>&1
-    /sbin/chkconfig --del %{name}
-fi  
-    
+%systemd_preun %{name}.service
+
 
 %postun
-if [ $1 == 2 ]; then
-    /sbin/service %{name} condrestart > /dev/null 2>&1 || :
-fi  
+%systemd_postun_with_restart %{name}.service
  
 
 
@@ -87,7 +80,8 @@ fi
 %{_sbindir}/%{name}
 %{_mandir}/man8/%{name}.8.gz
 %{_mandir}/man5/%{name}.conf.5.gz
-%{_initrddir}/%{name}
+%{_unitdir}/%{name}.service
+%{_tmpfilesdir}/%{name}.conf
 %{tinyproxy_datadir}
 %dir %{tinyproxy_confdir}
 %dir %{tinyproxy_rundir}
@@ -98,6 +92,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Sun Sep 08 2013 Jeremy Hinegardner <jeremy@hinegardner.org> - 1.8.2-7
+- apply patch from Tomas Torcz which provides systemd bits, removing SYSV initscript (#760474)
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 %define tinyproxy_group   tinyproxy
 
 Name:           tinyproxy
-Version:        1.8.2
-Release:        7%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -92,6 +92,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Sun Sep 08 2013 Jeremy Hinegardner <jeremy@hinegardner.org> - 1.8.3-1
+- update to upstream 1.8.3
+
 * Sun Sep 08 2013 Jeremy Hinegardner <jeremy@hinegardner.org> - 1.8.2-7
 - apply patch from Tomas Torcz which provides systemd bits, removing SYSV initscript (#760474)
 

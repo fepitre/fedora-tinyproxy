@@ -6,7 +6,7 @@
 %define tinyproxy_group   tinyproxy
 
 Name:           tinyproxy
-Version:        1.8.2
+Version:        1.8.3
 Release:        1%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
@@ -88,8 +88,8 @@ fi
 %{_mandir}/man8/%{name}.8.gz
 %{_mandir}/man5/%{name}.conf.5.gz
 %{_initrddir}/%{name}
+%{tinyproxy_datadir}/*.html
 %dir %{tinyproxy_datadir}
-%dir %{tinyproxy_datadir}/*
 %dir %{tinyproxy_confdir}
 %dir %{tinyproxy_rundir}
 %dir %{tinyproxy_logdir}
@@ -99,6 +99,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Mon Sep 09 2013 Jeremy Hinegardner <jeremy@hinegardner.org> - 1.8.3-1
+- update to upstream 1.8.3
+
 * Sat Jun 05 2010 Jeremy Hinegardner <jeremy at hinegardner dot org> - 1.8.2-1
 - update to upstream 1.8.2
 

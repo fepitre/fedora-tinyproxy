@@ -9,7 +9,7 @@
 
 Name:           tinyproxy
 Version:        1.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -39,7 +39,7 @@ resource intensive, or a security risk.
     --enable-reverse \
     --enable-transparent 
 
-make LDFLAGS="%{?__global_ldflags}" CFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
+make LDFLAGS="%{?__global_ldflags}" CFLAGS="-DNDEBUG $RPM_OPT_FLAGS" %{?_smp_mflags}
 
 
 %install
@@ -94,6 +94,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Mon Sep 30 2013 Jeremy Hinegardner <jeremy@hinegardner.org> - 1.8.3-2
+- fix missing NDEBUG flag (#1011783)
+
 * Sun Sep 08 2013 Jeremy Hinegardner <jeremy@hinegardner.org> - 1.8.3-1
 - update to upstream 1.8.3
 

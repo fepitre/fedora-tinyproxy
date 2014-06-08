@@ -9,7 +9,7 @@
 
 Name:           tinyproxy
 Version:        1.8.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -94,6 +94,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Mon Sep 30 2013 Jeremy Hinegardner <jeremy@hinegardner.org> - 1.8.3-2
 - fix missing NDEBUG flag (#1011783)
 

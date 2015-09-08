@@ -16,7 +16,7 @@ URL:            https://www.banu.com/tinyproxy/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source0:        https://www.banu.com/pub/tinyproxy/1.8/%{name}-%{version}.tar.bz2
-Source1:        %{name}.systemd
+Source1:        %{name}.service
 Source2:        %{name}.conf
 Source3:        %{name}.logrotate
 Source4:        %{name}.tmpfiles

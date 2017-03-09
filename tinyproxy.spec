@@ -8,16 +8,16 @@
 %define tinyproxy_group   tinyproxy
 
 Name:           tinyproxy
-Version:        1.8.3
-Release:        7%{?dist}
+Version:        1.8.4
+Release:        1%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
 License:        GPLv2+
-URL:            https://www.banu.com/tinyproxy/
+URL:            https://github.com/tinyproxy/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Source0:        https://www.banu.com/pub/tinyproxy/1.8/%{name}-%{version}.tar.bz2
+Source0:        https://github.com/tinyproxy/tinyproxy/releases/download/%{version}/%{name}-%{version}.tar.xz
 Source1:        %{name}.service
 Source2:        %{name}.conf
 Source3:        %{name}.logrotate
@@ -94,6 +94,9 @@ fi
 %attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Tue Mar 07 2017 Michael Adam <obnox@samba.org> - 1.8.4-1
+- Update to new upstream version 1.8.4
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 

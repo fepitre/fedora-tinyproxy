@@ -15,7 +15,6 @@ Summary:        A small, efficient HTTP/SSL proxy daemon
 Group:          System Environment/Daemons
 License:        GPLv2+
 URL:            https://github.com/tinyproxy/
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source0:        https://github.com/tinyproxy/tinyproxy/releases/download/%{version}/%{name}-%{version}.tar.xz
 Source1:        %{name}.service

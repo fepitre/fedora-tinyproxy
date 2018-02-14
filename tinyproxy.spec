@@ -51,9 +51,6 @@ make install DESTDIR=%{buildroot}
 %{__install} -p -d -m 0700 %{buildroot}/run/%{name}
 %{__install} -p -d -m 0700 %{buildroot}%{_localstatedir}/log/%{name}
 
-%clean
-rm -rf %{buildroot}
-
 
 %pre
 if [ $1 == 1 ]; then

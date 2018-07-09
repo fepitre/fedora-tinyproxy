@@ -22,6 +22,7 @@ Source2:        %{name}.conf
 Source3:        %{name}.logrotate
 Source4:        %{name}.tmpfiles
 
+BuildRequires:  gcc
 BuildRequires:      asciidoc
 
 %description

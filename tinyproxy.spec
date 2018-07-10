@@ -74,7 +74,6 @@ fi
 
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING README NEWS docs/*.txt
 %{_sbindir}/%{name}
 %{_mandir}/man8/%{name}.8.gz

@@ -8,8 +8,8 @@
 %define tinyproxy_group   tinyproxy
 
 Name:           tinyproxy
-Version:        1.8.4
-Release:        5%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -23,7 +23,8 @@ Source3:        %{name}.logrotate
 Source4:        %{name}.tmpfiles
 
 BuildRequires:  gcc
-BuildRequires:      asciidoc
+BuildRequires:  asciidoc
+BuildRequires:  systemd
 
 %description
 tinyproxy is a small, efficient HTTP/SSL proxy daemon that is very useful in a
@@ -35,7 +36,7 @@ resource intensive, or a security risk.
 
 
 %build
-%configure --sysconfdir=%{tinyproxy_confdir} \
+%configure --sysconfdir=%{_sysconfdir} \
     --enable-reverse \
     --enable-transparent 
 
@@ -49,8 +50,8 @@ make install DESTDIR=%{buildroot}
 %{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{tinyproxy_confdir}/%{name}.conf
 %{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 %{__install} -p -D -m 0644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/%{name}.conf
-%{__install} -p -d -m 0700 %{buildroot}/run/%{name}
-%{__install} -p -d -m 0700 %{buildroot}%{_localstatedir}/log/%{name}
+%{__install} -p -d -m 0700 %{buildroot}%{tinyproxy_rundir}
+%{__install} -p -d -m 0700 %{buildroot}%{tinyproxy_logdir}
 
 
 %pre
@@ -74,22 +75,25 @@ fi
 
 
 %files
-%doc AUTHORS COPYING README NEWS docs/*.txt
-%{_sbindir}/%{name}
+%doc AUTHORS COPYING README README.md NEWS docs/*.txt
+%{_bindir}/%{name}
 %{_mandir}/man8/%{name}.8.gz
 %{_mandir}/man5/%{name}.conf.5.gz
 %{_unitdir}/%{name}.service
 %{_tmpfilesdir}/%{name}.conf
 %{tinyproxy_datadir}
 %dir %{tinyproxy_confdir}
-%dir %{tinyproxy_rundir}
+%ghost %dir %{tinyproxy_rundir}
 %dir %{tinyproxy_logdir}
 %config(noreplace) %{tinyproxy_confdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_rundir}
-%attr(-,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
+%attr(0700,%{tinyproxy_user},%{tinyproxy_group}) %ghost %dir %{tinyproxy_rundir}
+%attr(0700,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Mon Sep 03 2018 Michael Adam <obnox@samba.org> - 1.10.0-1
+- Update to the new upstream stable version 1.10
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 

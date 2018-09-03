@@ -9,7 +9,7 @@
 
 Name:           tinyproxy
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -53,6 +53,10 @@ make install DESTDIR=%{buildroot}
 %{__install} -p -d -m 0700 %{buildroot}%{tinyproxy_rundir}
 %{__install} -p -d -m 0700 %{buildroot}%{tinyproxy_logdir}
 
+# compatibility symlink
+%{__install} -p -d -m 0755 %{buildroot}%{_sbindir}
+ln -s ../bin/%{name} %{buildroot}%{_sbindir}/%{name}
+
 
 %pre
 if [ $1 == 1 ]; then
@@ -77,6 +81,7 @@ fi
 %files
 %doc AUTHORS COPYING README README.md NEWS docs/*.txt
 %{_bindir}/%{name}
+%{_sbindir}/%{name}
 %{_mandir}/man8/%{name}.8.gz
 %{_mandir}/man5/%{name}.conf.5.gz
 %{_unitdir}/%{name}.service
@@ -91,6 +96,9 @@ fi
 %attr(0700,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Mon Sep 03 2018 Michael Adam <obnox@samba.org> - 1.10.0-2
+- Create compatibilty symlink /usr/sbin/tinyproxy
+
 * Mon Sep 03 2018 Michael Adam <obnox@samba.org> - 1.10.0-1
 - Update to the new upstream stable version 1.10
 

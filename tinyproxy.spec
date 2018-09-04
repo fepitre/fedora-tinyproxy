@@ -9,7 +9,7 @@
 
 Name:           tinyproxy
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 Group:          System Environment/Daemons
@@ -91,6 +91,9 @@ fi
 %attr(0700,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Tue Sep 04 2018 Michael Adam <obnox@samba.org> - 1.10.0-2
+- Rebuild rawhide to stay ahead of f29
+
 * Mon Sep 03 2018 Michael Adam <obnox@samba.org> - 1.10.0-1
 - Update to the new upstream stable version 1.10
 

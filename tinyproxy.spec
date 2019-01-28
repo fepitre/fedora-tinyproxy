@@ -12,7 +12,6 @@ Version:        1.10.0
 Release:        2%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
-Group:          System Environment/Daemons
 License:        GPLv2+
 URL:            https://github.com/tinyproxy/
 

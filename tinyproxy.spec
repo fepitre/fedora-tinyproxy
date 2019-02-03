@@ -9,7 +9,7 @@
 
 Name:           tinyproxy
 Version:        1.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A small, efficient HTTP/SSL proxy daemon
 
 License:        GPLv2+
@@ -90,6 +90,9 @@ fi
 %attr(0700,%{tinyproxy_user},%{tinyproxy_group}) %dir %{tinyproxy_logdir}
 
 %changelog
+* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Tue Sep 04 2018 Michael Adam <obnox@samba.org> - 1.10.0-2
 - Rebuild rawhide to stay ahead of f29
 
